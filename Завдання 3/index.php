@@ -1,21 +1,24 @@
 <?php
 function Text($txt)
 {
-    $pattern = '/[\W \d]/';
+
+    //$pattern = '/[\W \d]/';
+    $pattern = '/[^\p{L}]/u';
     $str = preg_replace($pattern, '',$txt);
     echo $str.PHP_EOL;
     echo PHP_EOL;
-    for($i = 0; $i < strlen($str); $i++){
+    $res = '';
+    for($i = 0; $i < mb_strlen($str, 'utf-8'); $i++){
         if($i % 2 == 0){
-            $str[$i] = strtoupper($str[$i]);
+            $res = mb_strtoupper(mb_substr($str, $i, 1, 'utf-8'));
         } else {
-            $str[$i] = strtolower($str[$i]);
+            $res = mb_strtolower(mb_substr($str, $i, 1, 'utf-8'));
         }
-        echo $str[$i];
+        echo $res;
     }
 }
 
-Text("Mr. and Mrs. Dursley lived at number four Privet 56Drive and always proudly declared that, thank God, they were absolutely normal people. 
+Text(" єїяMr. and Mrs.її Dursley lived вв at  number four Privet 56Drive and always proudly єєєdeclared that, thank God, they were absolutely normal people. 
 It was impossible to expect from anyone, but from them, that they w90-ould find 90-themselve-0=s in some strange or mysterious situation. Mr. and Mrs. Dursley 
 were very disapproving of any oddities, riddles an890d other nonsense.
 Mr. Dursley headed a company called Grunnings, which specialized in the m===anufacture of drills. He was a plump man 
